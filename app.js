@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser')
 var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 var app = express();
 app.set('view engine', 'ejs');
-var redirect_uri = "http://localhost:3000/slack/auth"
+var redirect_uri = "https://hackdebate.now.sh/slack/auth"
 
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(cookieParser())
