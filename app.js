@@ -23,7 +23,7 @@ app.get("/slack/auth" , (req,res) => {
             var user = data.data.user
             console.log(data.data)
             base("Forms").select({
-                view: "Grid view",
+                view: "Main",
                 filterByFormula:"{Slack ID} = '"+user.id+"'"
             }).eachPage((records,next) => {
                 records.forEach((record) => {
@@ -69,7 +69,7 @@ app.get("/home" , (req,res) => {
     var user = JSON.parse(req.cookies.user)
     user.id = user ? user.id : "none";
     base("Forms").select({
-        view: "Grid view",
+        view: "Main",
         filterByFormula:"{Slack ID} = '"+user.id+"'"
     }).eachPage((records,next) => {
         records.forEach((record) => {

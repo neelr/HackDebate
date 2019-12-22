@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
-        <a href="https://hackclub.com/"><img style="position: absolute; top: 0; left: 10px; border: 0; width: 230px; z-index: 999;" src="https://cdn.jsdelivr.net/gh/hackclub/meta@fc4c0d220426eb53a176e656ae7700d9dcd0b2c5/logos/banner_orpheus_hand.svg" alt="Hack Club"/></a>
+        <a class="hc-hand" href="https://hackclub.com/"><img style="position: absolute; top: 0; left: 10px; border: 0; width: 230px; z-index: 999;" src="https://cdn.jsdelivr.net/gh/hackclub/meta@fc4c0d220426eb53a176e656ae7700d9dcd0b2c5/logos/banner_orpheus_hand.svg" alt="Hack Club"/></a>
   <section class="hero is-danger is-fullheight">
     <div class="hero-body">
         <div class="container has-text-centered">
@@ -22,9 +22,8 @@
                 HackDebate
             </h1>
             <p class="subtitle">
-                Hack Club's <strong>first</strong> debate invitational! <em>More info soon!</em>
+                Hack Club's <strong>first</strong> debate invitational! Starting om Jan 4!
             </p>
-            <a href="https://airtable.com/shrT7JvB9KUiD3YX1" class="button is-info is-inverted is-outlined">Sign up!</a>
             <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email&client_id=2210535565.869749243826&redirect_uri=https://hackdebate.now.sh/slack/auth"><img alt=""Sign in with Slack"" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a>
         </div>
     </div>
@@ -33,6 +32,11 @@
     @media screen and (max-width:523px) {
         .title {
             font-size: 3em !important;
+        }
+    }
+    @media screen and (max-width:903px) {
+        .hc-hand {
+            display: none;
         }
     }
     </style>
