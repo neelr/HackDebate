@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser')
 var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 var app = express();
 app.set('view engine', 'ejs');
-var redirect_uri = "http://hackdebate.now.sh/slack/auth"
+var redirect_uri = "https://hackdebate.now.sh/slack/auth"
 
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(cookieParser())
@@ -21,7 +21,6 @@ app.get("/slack/auth" , (req,res) => {
     axios.get("https://slack.com/api/oauth.access?client_id=2210535565.869749243826&redirect_uri="+redirect_uri+"&client_secret="+process.env.CLIENT_SECRET+"&code="+req.query.code)
         .then((data) => {
             var user = data.data.user
-            user.data = user ? user.data : "none";
             console.log(data.data)
             base("Forms").select({
                 view: "Grid view",
