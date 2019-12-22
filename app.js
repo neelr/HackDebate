@@ -94,22 +94,24 @@ app.get("/home" , (req,res) => {
     })
 });
 app.post("/sendmail", (req,res) => {
-    base("Forms").select({
-        view:"Main"
-    }).eachPage((records,next) => {
-        records.forEach(async (record) => {
-            if (record.get("Email") != undefined) {
-                console.log(record.get("Email"))
-                await send.sendMail({
-                    to:record.get("Email"),
-                    html:req.body.html,
-                    subject:req.body.subject
-                });
-            }
+    if (req.body.key == process.env.KEY) {
+        base("Forms").select({
+            view:"Main"
+        }).eachPage((records,next) => {
+            records.forEach(async (record) => {
+                if (record.get("Email") != undefined) {
+                    console.log(record.get("Email"))
+                    await send.sendMail({
+                        to:record.get("Email"),
+                        html:req.body.html,
+                        subject:req.body.subject
+                    });
+                }
+            });
+            next();
+        }, () => {
+            res.send(200);
         });
-        next();
-    }, () => {
-        res.send(200);
-    });
+    }
 })
 app.listen(3000, () => console.log("Listening on port 3000"));
