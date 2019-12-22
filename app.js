@@ -8,7 +8,7 @@ var cookieParser = require('cookie-parser')
 var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 var app = express();
 app.set('view engine', 'ejs');
-var redirect_uri = "https://hackdebate.now.sh/slack/auth"
+var redirect_uri = "http://localhost:3000/slack/auth"
 
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(cookieParser())
@@ -37,15 +37,29 @@ app.get("/slack/auth" , (req,res) => {
                                 "Key":user.key
                             }
                         }
-                    ])
-                    res.cookie("user",JSON.stringify(user));
-                    res.redirect("/home");
-                    user.completed = true;
+                    ], () => {
+                        res.cookie("user",JSON.stringify(user));
+                        res.redirect("/home");
+                    })
                 })
                 next();
             },() => {
                 if (!done) {
-                    res.redirect("https://airtable.com/shrT7JvB9KUiD3YX1")
+                    user.key = JSON.stringify((Math.random()%3131134512)*13344);
+                    base('Forms').create([
+                        {
+                            "fields": {
+                                "Name": user.name,
+                                "Slack ID": user.id,
+                                "Not Free": true,
+                                "Email":user.email,
+                                "Key":user.key
+                            }
+                        }
+                    ],() => {
+                        res.cookie("user",JSON.stringify(user));
+                        res.redirect("/home");
+                    })
                 }
             })
         })
