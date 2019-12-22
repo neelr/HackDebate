@@ -1,5 +1,6 @@
 require("dotenv").config();
 var express = require("express");
+const nodemailer = require("nodemailer");
 var axios = require("axios");
 var airtable = require("airtable");
 var fs = require('fs');
@@ -9,9 +10,16 @@ var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRT
 var app = express();
 app.set('view engine', 'ejs');
 var redirect_uri = "https://hackdebate.now.sh/slack/auth"
-
+var send = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(cookieParser())
+app.use(express.json());
 app.get("/" ,(req,res) => {
     res.send("index");
 });
@@ -85,5 +93,23 @@ app.get("/home" , (req,res) => {
         }
     })
 });
-
+app.post("/sendmail", (req,res) => {
+    base("Forms").select({
+        view:"Main"
+    }).eachPage((records,next) => {
+        records.forEach(async (record) => {
+            if (record.get("Email") != undefined) {
+                console.log(record.get("Email"))
+                await send.sendMail({
+                    to:record.get("Email"),
+                    html:req.body.html,
+                    subject:req.body.subject
+                });
+            }
+        });
+        next();
+    }, () => {
+        res.send(200);
+    });
+})
 app.listen(3000, () => console.log("Listening on port 3000"));
