@@ -11,7 +11,8 @@
     <meta property="og:title" content="HackDebate!">
     <meta property="og:description" content="Sign up now for Hack Club's first debate invitational!">
     <meta property="og:image" content="https://hackdebate.now.sh/pic.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
         <a class="hc-hand" href="https://hackclub.com/"><img style="position: absolute; top: 0; left: 10px; border: 0; width: 230px; z-index: 999;" src="https://cdn.jsdelivr.net/gh/hackclub/meta@fc4c0d220426eb53a176e656ae7700d9dcd0b2c5/logos/banner_orpheus_hand.svg" alt="Hack Club"/></a>
@@ -66,7 +67,20 @@
 					</div>
 				</div>
 			</div>
-        </div>
+			<div>
+				<a id="delete-button" class="button is-danger is-light">Delete Account</a>
+			</div>
+			<script>
+				document.getElementById("delete-button").onclick = () => {
+					if (confirm("Are you sure you want to delete your account, record, and all data, including wins, and judge descisions?")) {
+						axios.post("/delete",{"key":"<%=record.get("Key")%>"})
+							.then(() => {
+								window.location = "/";
+							})
+						}
+				}
+			</script>
+		</div>
     </div>
     <style>
 	@media screen and (max-width:903px) {

@@ -17,11 +17,18 @@ var send = nodemailer.createTransport({
         pass: process.env.EMAIL_PASSWORD
     }
 });
-app.use(express.static(path.join(__dirname, 'views')));
 app.use(cookieParser())
 app.use(express.json());
 app.get("/" ,(req,res) => {
-    res.send("index");
+    user = {key:""}
+    if (req.cookies.user != "") {
+        user = JSON.parse(req.cookies.user)
+    }
+    if (user.key != "") {
+        res.redirect("/home");
+    } else {
+        res.render("index");
+    }
 });
 app.get("/slack/auth" , (req,res) => {
     console.log(req.query)
@@ -89,6 +96,7 @@ app.get("/home" , (req,res) => {
         next();
     },() => {
         if (!done) {
+            res.cookie("user","");
             res.redirect("/")
         }
     })
@@ -113,5 +121,19 @@ app.post("/sendmail", (req,res) => {
             res.send(200);
         });
     }
+})
+app.post("/delete", (req,res) => {
+    base("Forms").select({
+        view:"Main"
+    }).eachPage((records,next) => {
+        records.forEach(async (record) => {
+            if (record.get("Key") == req.body.key) {
+                base("Forms").destroy([record.id],() => {
+                    res.send({"ok":true})
+                });
+            }
+        });
+        next();
+    });
 })
 app.listen(3000, () => console.log("Listening on port 3000"));
