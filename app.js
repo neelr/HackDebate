@@ -1,6 +1,5 @@
 require("dotenv").config();
 var express = require("express");
-const nodemailer = require("nodemailer");
 var axios = require("axios");
 var airtable = require("airtable");
 const path = require('path');
@@ -10,11 +9,11 @@ var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRT
 var app = express();
 
 
-var send = (user,text,ts) => {
+var slack = (user,text,ts) => {
 	return new Promise((res,rej) => {
 		axios.post("https://slack.com/api/chat.postMessage",qs.stringify({"token":process.env.OAUTH,"channel":user,"text":text,"thread_ts":ts}))
-		.then(() => {
-        res();
+		.then((data) => {
+        res(data.data);
       })
 	})
 }
@@ -23,13 +22,6 @@ var redirect_uri = "http://localhost:3000/slack/auth"
 if (process.env.PROD == "production") {
     redirect_uri = "https://hackdebate.now.sh/slack/auth"
 }
-var send = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD
-    }
-});
 app.set('views', path.join(__dirname, 'views/'));
 app.use(cookieParser())
 app.use(express.json());
@@ -121,15 +113,8 @@ app.post("/sendmail", (req,res) => {
             view:"Main"
         }).eachPage((records,next) => {
             records.forEach(async (record) => {
-                send(record.get("Slack ID"),req.body.text)
-                if (record.get("Email") != undefined) {
-                    console.log(record.get("Email"))
-                    await send.sendMail({
-                        to:record.get("Email"),
-                        html:req.body.text,
-                        subject:req.body.subject
-                    });
-                }
+                console.log(record.get("Slack ID"))
+                slack(record.get("Slack ID"),req.body.text);
             });
             next();
         }, () => {
