@@ -9,7 +9,10 @@ var cookieParser = require('cookie-parser')
 var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 var app = express();
 app.set('view engine', 'ejs');
-var redirect_uri = "https://hackdebate.now.sh/slack/auth"
+var redirect_uri = "http://localhost:3000/slack/auth"
+if (process.env.PROD == "production") {
+    redirect_uri = "https://hackdebate.now.sh/slack/auth"
+}
 var send = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -17,17 +20,18 @@ var send = nodemailer.createTransport({
         pass: process.env.EMAIL_PASSWORD
     }
 });
+app.set('views', path.join(__dirname, 'views/'));
 app.use(cookieParser())
 app.use(express.json());
 app.get("/" ,(req,res) => {
-    user = {key:""}
-    if (req.cookies.user != "") {
-        user = JSON.parse(req.cookies.user)
+    var user = {key:""};
+    if (req.cookies.user) {
+        user = JSON.parse(req.cookies.user);
     }
     if (user.key != "") {
         res.redirect("/home");
     } else {
-        res.render("index");
+        res.render("index", {url:redirect_uri});
     }
 });
 app.get("/slack/auth" , (req,res) => {
