@@ -3,11 +3,21 @@ var express = require("express");
 const nodemailer = require("nodemailer");
 var axios = require("axios");
 var airtable = require("airtable");
-var fs = require('fs');
 const path = require('path');
+const qs = require("qs");
 var cookieParser = require('cookie-parser')
 var base = new airtable({apiKey:process.env.AIRTABLE_KEY}).base(process.env.AIRTABLE_BASE);
 var app = express();
+
+
+var send = (user,text,ts) => {
+	return new Promise((res,rej) => {
+		axios.post("https://slack.com/api/chat.postMessage",qs.stringify({"token":process.env.OAUTH,"channel":user,"text":text,"thread_ts":ts}))
+		.then(() => {
+        res();
+      })
+	})
+}
 app.set('view engine', 'ejs');
 var redirect_uri = "http://localhost:3000/slack/auth"
 if (process.env.PROD == "production") {
@@ -111,11 +121,12 @@ app.post("/sendmail", (req,res) => {
             view:"Main"
         }).eachPage((records,next) => {
             records.forEach(async (record) => {
+                send(record.get("Slack ID"),req.body.text)
                 if (record.get("Email") != undefined) {
                     console.log(record.get("Email"))
                     await send.sendMail({
                         to:record.get("Email"),
-                        html:req.body.html,
+                        html:req.body.text,
                         subject:req.body.subject
                     });
                 }
