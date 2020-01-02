@@ -37,12 +37,10 @@ app.get("/" ,(req,res) => {
     }
 });
 app.get("/slack/auth" , (req,res) => {
-    console.log(req.query)
     done = false;
     axios.get("https://slack.com/api/oauth.access?client_id=2210535565.869749243826&redirect_uri="+redirect_uri+"&client_secret="+process.env.CLIENT_SECRET+"&code="+req.query.code)
         .then((data) => {
             var user = data.data.user
-            console.log(data.data)
             base("Forms").select({
                 view: "Main",
                 filterByFormula:"{Slack ID} = '"+user.id+"'"
@@ -66,18 +64,19 @@ app.get("/slack/auth" , (req,res) => {
                 next();
             },() => {
                 if (!done) {
+                    console.log("here")
                     user.key = JSON.stringify((Math.random()%3131134512)*13344);
                     base('Forms').create([
                         {
                             "fields": {
                                 "Name": user.name,
                                 "Slack ID": user.id,
-                                "Not Free": true,
                                 "Email":user.email,
                                 "Key":user.key
                             }
                         }
-                    ],() => {
+                    ],(err) => {
+                        console.log(err)
                         res.cookie("user",JSON.stringify(user));
                         res.redirect("/home");
                     })
