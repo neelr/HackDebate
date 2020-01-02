@@ -117,7 +117,7 @@ app.post("/sendmail", (req,res) => {
             });
             next();
         }, () => {
-            res.send(200);
+            res.sendStatus(200);
         });
     }
 })
