@@ -11,7 +11,7 @@ var app = express();
 
 var slack = (user,text,ts) => {
 	return new Promise((res,rej) => {
-		axios.post("https://slack.com/api/chat.postMessage",qs.stringify({"token":process.env.OAUTH,"channel":user,"text":text,"thread_ts":ts,"as_user":true}))
+		axios.post("https://slack.com/api/chat.postMessage",qs.stringify({"token":process.env.OAUTH,"channel":user,"text":text,"thread_ts":ts,as_user:true}))
 		.then((data) => {
         res(data.data);
       })

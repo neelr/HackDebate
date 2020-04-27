@@ -1,36 +1,68 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HackDebate!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <link rel="icon" href="https://raw.githubusercontent.com/hackclub/hackclub/master/internals/logos/hack_club_letter.png"/>
-    <meta property="og:title" content="HackDebate!">
-    <meta property="og:description" content="Sign up now for Hack Club's first debate invitational!">
-    <meta property="og:image" content="https://hackdebate.now.sh/pic.png">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  </head>
-  <body>
-        <a class="hc-hand" href="https://hackclub.com/"><img style="position: absolute; top: 0; left: 10px; border: 0; width: 230px; z-index: 999;" src="https://cdn.jsdelivr.net/gh/hackclub/meta@fc4c0d220426eb53a176e656ae7700d9dcd0b2c5/logos/banner_orpheus_hand.svg" alt="Hack Club"/></a>
-  <section class="hero is-danger is-fullheight">
-    <div class="hero-body">
-        <div class="container has-text-centered">
-            <h1 class="title">
-                Hi <%=record.get("Name")%>!
-            </h1>
-            <p class="title is-4" style="margin-bottom: 0;">
-              Topic
-			</p>
-			<p style="padding-bottom: 30px;">
-				Coming out on Jan 4!!!
-			</p>
-			<h2 class="title is-2">Pairings</h2>
-            <iframe class="airtable-embed" src="https://airtable.com/embed/shr7ub9YkWZBRWkMo?backgroundColor=red" frameborder="0" onmousewheel="" width="80%" height="300" style="background: transparent; border: 1px solid #ccc;"></iframe>
-			<div style="height:30px;"></div>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>HackDebate!</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+		/>
+		<script
+			defer
+			src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+		></script>
+		<link
+			rel="icon"
+			href="https://raw.githubusercontent.com/hackclub/hackclub/master/internals/logos/hack_club_letter.png"
+		/>
+		<meta property="og:title" content="HackDebate!" />
+		<meta
+			property="og:description"
+			content="Sign up now for Hack Club's first debate invitational!"
+		/>
+		<meta property="og:image" content="https://hackdebate.now.sh/pic.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	</head>
+	<body>
+		<a class="hc-hand" href="https://hackclub.com/"
+			><img
+				style="
+					position: absolute;
+					top: 0;
+					left: 10px;
+					border: 0;
+					width: 230px;
+					z-index: 999;
+				"
+				src="https://cdn.jsdelivr.net/gh/hackclub/meta@fc4c0d220426eb53a176e656ae7700d9dcd0b2c5/logos/banner_orpheus_hand.svg"
+				alt="Hack Club"
+		/></a>
+		<section class="hero is-danger is-fullheight">
+			<div class="hero-body">
+				<div class="container has-text-centered">
+					<h1 class="title">
+						Hi <%=record.get("Name")%>!
+					</h1>
+					<p class="title is-4" style="margin-bottom: 0;">
+						Topic
+					</p>
+					<p style="padding-bottom: 30px;">
+						TBD
+					</p>
+					<h2 class="title is-2">Pairings</h2>
+					<iframe
+						class="airtable-embed"
+						src="https://airtable.com/embed/shr7ub9YkWZBRWkMo?backgroundColor=red"
+						frameborder="0"
+						onmousewheel=""
+						width="80%"
+						height="300"
+						style="background: transparent; border: 1px solid #ccc;"
+					></iframe>
+					<div style="height: 30px;"></div>
+					<!--
 			<h2 class="title is-2">Judges</h2>
 			<div class="columns is-multiline">
 				<div class="column is-one-third">
@@ -61,69 +93,92 @@
 				</div>
 			</div>
 			<div style="height:30px;"></div>
-			<h2 class="title is-2">Leaderboard</h2>
-			<iframe class="airtable-embed" src="https://airtable.com/embed/shrYIsJM2RGu3vIfZ?backgroundColor=orange&viewControls=on" frameborder="0" onmousewheel="" width="80%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
-			<div style="height:30px;"></div>
-			<h2 class="title is-2">Reasons For Decisions</h2>
-			<div class="columns is-multiline">
-				<div class="column is-one-third">
-					<div class="box">
-						<h1 class="title is-4" style="color:black;">Round 1</h1>
-						<p><%=record.get("Round 1")%></p>
+			-->
+					<h2 class="title is-2">Leaderboard</h2>
+					<iframe
+						class="airtable-embed"
+						src="https://airtable.com/embed/shrYIsJM2RGu3vIfZ?backgroundColor=orange&viewControls=on"
+						frameborder="0"
+						onmousewheel=""
+						width="80%"
+						height="533"
+						style="background: transparent; border: 1px solid #ccc;"
+					></iframe>
+					<div style="height: 30px;"></div>
+					<h2 class="title is-2">Reasons For Decisions</h2>
+					<div class="columns is-multiline">
+						<div class="column is-one-third">
+							<div class="box">
+								<h1 class="title is-4" style="color: black;">
+									Round 1
+								</h1>
+								<p><%=record.get("Round 1")%></p>
+							</div>
+						</div>
+						<div class="column is-one-third">
+							<div class="box">
+								<h1 class="title is-4" style="color: black;">
+									Round 2
+								</h1>
+								<p><%=record.get("Round 2")%></p>
+							</div>
+						</div>
+						<div class="column is-one-third">
+							<div class="box">
+								<h1 class="title is-4" style="color: black;">
+									Round 3
+								</h1>
+								<p><%=record.get("Round 3")%></p>
+							</div>
+						</div>
+						<div class="column is-one-third">
+							<div class="box">
+								<h1 class="title is-4" style="color: black;">
+									Round 4
+								</h1>
+								<p><%=record.get("Round 4")%></p>
+							</div>
+						</div>
+						<div class="column is-one-third">
+							<div class="box">
+								<h1 class="title is-4" style="color: black;">
+									Round 5
+								</h1>
+								<p><%=record.get("Round 5")%></p>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="column is-one-third">
-					<div class="box">
-						<h1 class="title is-4" style="color:black;">Round 2</h1>
-						<p><%=record.get("Round 2")%></p>
+					<div>
+						<a id="log-out-button" class="button is-danger is-light"
+							>Log Out</a
+						>
+						<a id="delete-button" class="button is-danger is-light"
+							>Delete Account</a
+						>
 					</div>
-				</div>
-				<div class="column is-one-third">
-					<div class="box">
-						<h1 class="title is-4" style="color:black;">Round 3</h1>
-						<p><%=record.get("Round 3")%></p>
-					</div>
-				</div>
-				<div class="column is-one-third">
-					<div class="box">
-						<h1 class="title is-4" style="color:black;">Round 4</h1>
-						<p><%=record.get("Round 4")%></p>
-					</div>
-				</div>
-				<div class="column is-one-third">
-					<div class="box">
-						<h1 class="title is-4" style="color:black;">Round 5</h1>
-						<p><%=record.get("Round 5")%></p>
-					</div>
-				</div>
-			</div>
-			<div>
-				<a id="log-out-button" class="button is-danger is-light">Log Out</a>
-				<a id="delete-button" class="button is-danger is-light">Delete Account</a>
-			</div>
-			<script>
-				document.getElementById("delete-button").onclick = () => {
-					if (confirm("Are you sure you want to delete your account, record, and all data, including wins, and judge descisions?")) {
-						axios.post("/delete",{"key":"<%=record.get("Key")%>"})
-							.then(() => {
-								window.location = "/";
-							})
+					<script>
+						document.getElementById("delete-button").onclick = () => {
+							if (confirm("Are you sure you want to delete your account, record, and all data, including wins, and judge descisions?")) {
+								axios.post("/delete",{"key":"<%=record.get("Key")%>"})
+									.then(() => {
+										window.location = "/";
+									})
+								}
 						}
+						document.getElementById("log-out-button").onclick = () => {
+							document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+							window.location = "/";
+						}
+					</script>
+				</div>
+			</div>
+			<style>
+				@media screen and (max-width: 903px) {
+					.hc-hand {
+						display: none;
+					}
 				}
-				document.getElementById("log-out-button").onclick = () => {
-					document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
-					window.location = "/";
-				}
-			</script>
-		</div>
-    </div>
-    <style>
-	@media screen and (max-width:903px) {
-        .hc-hand {
-            display: none;
-        }
-    }
-    </style>
-  </section>
-  </body>
+			</style>
+		</section>
+	</body>
 </html>
